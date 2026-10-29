@@ -1,0 +1,395 @@
+[
+  {
+    "english_name": "The Engineer's Guild",
+    "chinese_name": "工程师协会",
+    "description_template": "合作修理发电机，总计完成相当于 {{target}} 台发电机的进度。",
+    "role": "survivor",
+    "aliases": [
+      "工程師協會",
+      "工程师协今",
+      "工程師協今"
+    ]
+  },
+  {
+    "english_name": "Bring The Light",
+    "chinese_name": "要有光",
+    "description_template": "累计修理{{target}}台发电机。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Patched Up",
+    "chinese_name": "包扎完成",
+    "description_template": "完全治疗任意逃生者{{target}}层健康状态。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Liberator",
+    "chinese_name": "解放者",
+    "description_template": "安全解救{{target}}名逃生者。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Skilled Operator",
+    "chinese_name": "老到特工",
+    "description_template": "完成{{target}}次检定成功。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "The Last Place You Look",
+    "chinese_name": "最后所见",
+    "description_template": "解锁{{target}}个箱子。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Craft Time's Over",
+    "chinese_name": "制造时间结束",
+    "description_template": "净化{{target}}处图腾。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Gruesome",
+    "chinese_name": "阴森恐怖",
+    "description_template": "钩住{{target}}名逃生者。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Scrap Yard",
+    "chinese_name": "垃圾场",
+    "description_template": "破坏{{target}}台发电机。",
+    "role": "killer",
+    "aliases": [
+      "Scrapyard"
+    ]
+  },
+  {
+    "english_name": "Reverent",
+    "chinese_name": "虔敬",
+    "description_template": "献祭{{target}}名逃生者。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Bloody Rewards",
+    "chinese_name": "血腥奖励",
+    "description_template": "获得{{target}}血点。",
+    "role": "unknown",
+    "aliases": [
+      "血型奖励"
+    ]
+  },
+  {
+    "english_name": "Amateur Ornithologist",
+    "chinese_name": "业余鸟类学家",
+    "description_template": "惊扰{{target}}只乌鸦。",
+    "role": "unknown",
+    "aliases": []
+  },
+  {
+    "english_name": "Savior",
+    "chinese_name": "救世主",
+    "description_template": "安全解救{{target}}名逃生者；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "This Is Happening",
+    "chinese_name": "这不是梦",
+    "description_template": "使用技能难以置信时，完成3次完美鉴定；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Empathic",
+    "chinese_name": "同理心",
+    "description_template": "使用技能心灵共鸣时，完全治疗任意逃生者2层健康状态；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Plunder King",
+    "chinese_name": "搜刮之王",
+    "description_template": "使用技能强盗直觉时，解锁3个箱子；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Claudette's Determination",
+    "chinese_name": "克劳黛特的决心",
+    "description_template": "扮演克劳黛特·莫莱，成功逃脱1次；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Mechanical Obsession",
+    "chinese_name": "机械血祭品",
+    "description_template": "破坏相同发电机2次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Brutal Breaker",
+    "chinese_name": "鲁莽破坏者",
+    "description_template": "使用技能所向无敌时，破坏发电机或破坏扔下的木板5次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Dark Triumph",
+    "chinese_name": "暗黑胜果",
+    "description_template": "在绝命终局阶段献祭1名逃生者；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "None Shall Survive",
+    "chinese_name": "无人生还",
+    "description_template": "在一场比赛中用任意手段击杀所有逃生者，累计1次。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Hungry Jaws",
+    "chinese_name": "饥饿下颌",
+    "description_template": "扮演设陷者，使逃生者触发捕兽夹2次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "By Any Means Necessary",
+    "chinese_name": "不惜一切",
+    "description_template": "被杀手追逐时，扔下{{target}}处木板。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Appeal To Heal",
+    "chinese_name": "偏爱治疗",
+    "description_template": "完全消耗{{target}}个医疗箱。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Generosity",
+    "chinese_name": "慷慨",
+    "description_template": "治疗其他逃生者累计{{target}}层健康状态。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Golden Age",
+    "chinese_name": "黄金时代",
+    "description_template": "累计获得{{target}}块黄金品质或以上徽章。",
+    "role": "unknown",
+    "aliases": []
+  },
+  {
+    "english_name": "Self Care Service",
+    "chinese_name": "自愈服务",
+    "description_template": "使用技能自我疗愈时，治疗自身2层健康状态；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Fight Back",
+    "chinese_name": "反击",
+    "description_template": "扔下木板击晕杀手2次；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Dark Senses",
+    "chinese_name": "暗黑感知",
+    "description_template": "使用技能暗黑感知时，修理完成3台发电机；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Blood Debt",
+    "chinese_name": "全额支付",
+    "description_template": "解救本场比赛中早前解救过你的1名逃生者1次，必须安全将其解救；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Botanist Extraordinaire",
+    "chinese_name": "非凡植物学家",
+    "description_template": "使用技能精研百草与医疗箱时，完成治疗其他逃生者2层健康状态；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Agitated Advantage",
+    "chinese_name": "刺激优势",
+    "description_template": "使用技能欣喜若狂时，在地下室钩住2名逃生者；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Got You",
+    "chinese_name": "作祟之握",
+    "description_template": "打断并抓住1名逃生者；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Manifest Distress",
+    "chinese_name": "昭示苦难",
+    "description_template": "使用技能恐惧释放时，追逐逃生者累计90秒；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Enlightened",
+    "chinese_name": "启蒙",
+    "description_template": "致盲杀手2次；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Blindsided",
+    "chinese_name": "盲区",
+    "description_template": "致盲杀手{{target}}次。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Locked & Found",
+    "chinese_name": "锁物招领",
+    "description_template": "完全消耗{{target}}把钥匙。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Escape Artist",
+    "chinese_name": "逃脱艺术家",
+    "description_template": "成功逃脱{{target}}次。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Life Giver",
+    "chinese_name": "生命救星",
+    "description_template": "累计治疗{{target}}层健康状态。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Property Damage",
+    "chinese_name": "财产损失",
+    "description_template": "破坏发电机或扔下的木板{{target}}次。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Buried Underground",
+    "chinese_name": "深埋地下",
+    "description_template": "在地下室钩住{{target}}名逃生者。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Obsessive",
+    "chinese_name": "痴迷",
+    "description_template": "用任意手段击杀血祭品{{target}}次。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Iridescent Age",
+    "chinese_name": "荧虹时代",
+    "description_template": "累计获得{{target}}块荧虹品质徽章。",
+    "role": "unknown",
+    "aliases": []
+  },
+  {
+    "english_name": "Last Minute Hero",
+    "chinese_name": "最后英雄",
+    "description_template": "绝命终局开始后，安全解救1名逃生者；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Hope Is All We Have",
+    "chinese_name": "仅存希望",
+    "description_template": "使用技能希望之翼时，通过出口大门成功逃脱1次；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Decisive Light",
+    "chinese_name": "果断之光",
+    "description_template": "致盲正在搬运逃生者的杀手1次；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "Chilling Escape",
+    "chinese_name": "刺激逃亡",
+    "description_template": "使用技能毛骨悚然时，不被杀手钩住并成功逃脱1次。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "All Better!",
+    "chinese_name": "好多了！",
+    "description_template": "完全治疗任意逃生者3层健康状态；该挑战要求在单场对局中完成。",
+    "role": "survivor",
+    "aliases": []
+  },
+  {
+    "english_name": "You, Yes, You",
+    "chinese_name": "没错就是你",
+    "description_template": "钩住血祭品2次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Monstrous Mayhem",
+    "chinese_name": "怪物混乱",
+    "description_template": "使用技能天灾钩子：鬼魔神龛时，有逃生者被钩在地下室时，将另一名逃生者钩在地下室，累计1次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "No One Escapes The Endgame",
+    "chinese_name": "无人逃离终局",
+    "description_template": "使用技能厄咒：难逃一死时，在绝命终局阶段献祭2名逃生者；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Unnerving Encounter",
+    "chinese_name": "不安遭遇",
+    "description_template": "使用技能恐慌降临时，阻止任意出口大门被开启，累计1次；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Bloody Good",
+    "chinese_name": "血便是好",
+    "description_template": "用你的武器命中逃生者{{target}}次。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Darkly Obsessed",
+    "chinese_name": "黑暗血祭",
+    "description_template": "钩住血祭品{{target}}次。",
+    "role": "killer",
+    "aliases": []
+  },
+  {
+    "english_name": "Six Feet Under",
+    "chinese_name": "黄泉之下",
+    "description_template": "在地下室献祭4名逃生者；该挑战要求在单场对局中完成。",
+    "role": "killer",
+    "aliases": []
+  }
+]

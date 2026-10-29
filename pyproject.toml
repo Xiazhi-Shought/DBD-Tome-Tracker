@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools==84.0.0", "wheel==0.46.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbd-tome-tracker"
+dynamic = ["version"]
+description = "黎明杀机古书任务识别与悬浮窗进度追踪"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+  "PySide6-Essentials==6.12.0", "Pillow==12.3.0", "mss==10.2.0",
+  "httpx==0.28.1", "keyring==25.7.0", "rapidocr==3.9.2", "onnxruntime==1.30.0", "packaging==26.3",
+  "python-bidi==0.6.11",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "ruff==0.16.10", "mypy==2.4.0", "build==1.6.1"]
+build = ["pyinstaller==6.22.3", "pip-audit==2.10.1"]
+
+[project.scripts]
+dbd-tome-tracker = "desktranslate.tome_app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "desktranslate.__version__"}
+
+[tool.setuptools.package-data]
+desktranslate = ["assets/*", "assets/samples/*", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-m 'not interactive and not long_running and not system_changes and not external_service'"
+markers = [
+  "headless_ui: offscreen component tests without real desktop input or capture",
+  "native_process: short background process/handle lifecycle checks",
+  "interactive: reserved-session desktop tests, excluded by default",
+  "long_running: extended stress/benchmark work, excluded by default",
+  "system_changes: installation/system integration, excluded by default",
+  "external_service: actual external providers, excluded by default",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src"]
+exclude = [".venv", ".deps", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501", "UP031"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src/desktranslate"]
+check_untyped_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
