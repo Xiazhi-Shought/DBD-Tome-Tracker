@@ -25,7 +25,7 @@ py -3.12 -m venv .venv
 
 首次运行需要联网下载中文 OCR 模型，之后在本地识别。可从 [Releases](https://github.com/Xiazhi-Shought/DBD-Tome-Tracker/releases/latest) 下载 Windows 完整运行包，解压后双击 EXE 即可使用。
 
-## 简单使用教程
+## 使用教程
 
 ### 1. 下载并打开
 
