@@ -23,7 +23,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe run_tome_tracker.py
 ```
 
-首次运行需要联网下载中文 OCR 模型，之后在本地识别。暂未发布 Release。
+首次运行需要联网下载中文 OCR 模型，之后在本地识别。可从 [Releases](https://github.com/Xiazhi-Shought/DBD-Tome-Tracker/releases/latest) 下载 Windows 完整运行包，解压后双击 EXE 即可使用。
 
 ## 使用
 1. 在游戏中悬停显示任务详情。
