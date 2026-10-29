@@ -30,6 +30,10 @@ a = Analysis(
 )
 # Qt uses the Windows ICU API; a third-party ICU DLL shadows it.
 a.binaries = [item for item in a.binaries if Path(item[0]).name.lower() not in {"icuuc.dll", "icudt78.dll"}]
+# Screen OCR does not use video decoding or RapidOCR's bundled default v6 models.
+# Our ModelManager supplies explicitly pinned detector/classifier/recognizer paths.
+a.binaries = [item for item in a.binaries if 'opencv_videoio_ffmpeg' not in item[0].lower()]
+a.datas = [item for item in a.datas if not (item[0].replace('\\', '/').startswith('rapidocr/models/') and item[0].endswith('.onnx'))]
 pyz = PYZ(a.pure)
 
 exe = EXE(
