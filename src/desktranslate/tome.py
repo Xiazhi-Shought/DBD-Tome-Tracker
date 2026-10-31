@@ -14,6 +14,7 @@ _PROGRESS_PATTERNS = (
     re.compile(r"进度\s*[:：]?\s*(?P<current>\d{1,4})\s*(?:/|／|共)\s*(?P<target>\d{1,4})"),
 )
 _PERCENT_PATTERN = re.compile(r"(?P<percent>\d{1,3})\s*[%％]")
+_ROLE_LINE_PATTERN = re.compile(r"(?P<faction>逃生者|杀手)?(?:大师)?挑战")
 
 
 def normalize_ocr_text(text: str) -> str:
@@ -37,8 +38,8 @@ class TomeTask:
     display_progress: str = ""
 
     def __post_init__(self) -> None:
-        if self.role not in {"survivor", "killer", "unknown"}:
-            raise ValueError("role must be survivor, killer, or unknown")
+        if self.role not in {"survivor", "killer", "both", "unknown"}:
+            raise ValueError("role must be survivor, killer, both, or unknown")
         if not self.title.strip():
             raise ValueError("task title cannot be empty")
         if self.current is not None and self.current < 0:
@@ -94,13 +95,21 @@ def parse_task_card(text: str, role: str = "unknown", confidence: float = 0.0) -
     if not lines:
         raise ValueError("OCR result did not contain task text")
     observation = parse_progress(normalized, confidence)
+    detected_role = next(
+        (
+            {"逃生者": "survivor", "杀手": "killer", None: "both"}[match.group("faction")]
+            for line in lines
+            if (match := _ROLE_LINE_PATTERN.fullmatch(line))
+        ),
+        None,
+    )
     progress_line = next((line for line in lines if parse_progress(line)), "")
     content = [
         line
         for line in lines
         if line != progress_line
         and not re.search(r"古书\s*第?\s*\d+\s*册|等级\s*\d+", line)
-        and not re.fullmatch(r"(?:逃生者|杀手)?(?:大师)?挑战", line)
+        and not _ROLE_LINE_PATTERN.fullmatch(line)
         and not re.fullmatch(r"[\d\s,，]+", line)
     ]
     title = content[0] if content else lines[0]
@@ -112,7 +121,7 @@ def parse_task_card(text: str, role: str = "unknown", confidence: float = 0.0) -
         description=description,
         current=current,
         target=target,
-        role=role,
+        role=detected_role or role,
         completed=current is not None and target is not None and current >= target,
         confidence=confidence,
         updated_at=time.time(),

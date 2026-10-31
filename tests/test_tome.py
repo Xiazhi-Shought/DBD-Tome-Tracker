@@ -86,6 +86,14 @@ class TomeParserTests(unittest.TestCase):
         self.assertEqual(task.description, "与其他逃生者协同修理累计10台发电机。")
         self.assertEqual((task.current, task.target), (2, 10))
 
+    def test_task_role_is_detected_from_challenge_subtitle(self) -> None:
+        survivor = parse_task_card("工程师协会\n逃生者大师挑战\n修理发电机\n2/10", "killer")
+        killer = parse_task_card("阴森恐怖\n杀手挑战\n钩住逃生者\n1/8", "survivor")
+        both = parse_task_card("黄金时代\n挑战\n获得徽章\n3/20", "killer")
+        self.assertEqual(survivor.role, "survivor")
+        self.assertEqual(killer.role, "killer")
+        self.assertEqual(both.role, "both")
+
 
 if __name__ == "__main__":
     unittest.main()

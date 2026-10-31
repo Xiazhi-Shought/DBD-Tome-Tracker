@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import logging
 import time
+from dataclasses import replace
 from collections.abc import Callable
 from pathlib import Path
 from queue import Empty, Queue
@@ -125,6 +126,28 @@ class TomeService:
             updated_at=time.time(),
         )
         with self.lock:
+            self.tracker.task = task
+            self.tracker.save(self.store)
+        self._publish(task)
+        return task
+
+    def adjust_progress(self, delta: int = 0, complete: bool = False) -> TomeTask | None:
+        """Adjust the active task from overlay controls and persist it immediately."""
+
+        with self.lock:
+            task = self.tracker.task
+            if task is None or task.current is None or task.target is None:
+                return None
+            current = task.target if complete else max(0, min(task.target, task.current + int(delta)))
+            if current == task.current and task.completed == (current >= task.target):
+                return task
+            task = replace(
+                task,
+                current=current,
+                completed=current >= task.target,
+                display_progress="",
+                updated_at=time.time(),
+            )
             self.tracker.task = task
             self.tracker.save(self.store)
         self._publish(task)

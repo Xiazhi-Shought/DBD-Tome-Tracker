@@ -4,7 +4,7 @@ import ctypes
 import os
 from pathlib import Path
 
-from PySide6.QtCore import QPoint, Qt
+from PySide6.QtCore import QPoint, Qt, Signal, QElapsedTimer, QTimer
 from PySide6.QtGui import (
     QPixmap, QColor, QFont, QLinearGradient, QMouseEvent, QPainter, QPainterPath,
     QPaintEvent, QRegion, QResizeEvent
@@ -18,6 +18,9 @@ from desktranslate.tome import TomeTask
 
 class TomeOverlay(QWidget):
     """Always-on-top task card that can be dragged and position-locked."""
+
+    progress_delta_requested = Signal(int)
+    completion_requested = Signal()
 
     def __init__(self) -> None:
         super().__init__()
@@ -89,6 +92,14 @@ class TomeOverlay(QWidget):
         progress_row.addWidget(self.progress)
         layout.addLayout(progress_row)
 
+        self.minus_button = QPushButton("−")
+        self.plus_button = QPushButton("+")
+        self.complete_button = QPushButton("✓")
+        self._repeat_timer = QTimer(self)
+        self._repeat_timer.timeout.connect(self._repeat_progress_change)
+        self._repeat_elapsed = QElapsedTimer()
+        self._repeat_direction = 0
+
         self.lock_button = QPushButton("🔓")
         self.lock_button.setToolTip("锁定位置")
         self.lock_button.setFixedSize(30, 26)
@@ -99,6 +110,21 @@ class TomeOverlay(QWidget):
         )
         self.lock_button.clicked.connect(self.toggle_locked)
         footer = QHBoxLayout()
+        for button, tip, direction in (
+            (self.minus_button, "减少进度（长按加速）", -1),
+            (self.plus_button, "增加进度（长按加速）", 1),
+        ):
+            button.setToolTip(tip)
+            button.setFixedSize(30, 26)
+            button.setStyleSheet(self.lock_button.styleSheet())
+            button.pressed.connect(lambda direction=direction: self._start_progress_change(direction))
+            button.released.connect(self._stop_progress_change)
+            footer.addWidget(button)
+        self.complete_button.setToolTip("标记为已完成")
+        self.complete_button.setFixedSize(34, 26)
+        self.complete_button.setStyleSheet(self.lock_button.styleSheet())
+        self.complete_button.clicked.connect(self.completion_requested.emit)
+        footer.addWidget(self.complete_button)
         footer.addStretch()
         footer.addWidget(self.lock_button)
         self.dismiss_button = QPushButton("×")
@@ -116,6 +142,27 @@ class TomeOverlay(QWidget):
         self.opacity_percent = 72
         self.setCursor(Qt.CursorShape.SizeAllCursor)
         self._apply_rounded_mask()
+
+    def _start_progress_change(self, direction: int) -> None:
+        self._repeat_direction = direction
+        self._repeat_elapsed.start()
+        self.progress_delta_requested.emit(direction)
+        self._repeat_timer.start(420)
+
+    def _repeat_progress_change(self) -> None:
+        elapsed = self._repeat_elapsed.elapsed()
+        if elapsed < 1400:
+            step, interval = 1, 180
+        elif elapsed < 2800:
+            step, interval = 2, 105
+        else:
+            step, interval = 5, 60
+        self.progress_delta_requested.emit(self._repeat_direction * step)
+        self._repeat_timer.setInterval(interval)
+
+    def _stop_progress_change(self) -> None:
+        self._repeat_timer.stop()
+        self._repeat_direction = 0
 
     def set_acrylic_opacity(self, percent: int) -> None:
         self.opacity_percent = max(30, min(95, int(percent)))
@@ -229,8 +276,11 @@ class TomeOverlay(QWidget):
             self.description.setText("")
             self.progress.setText("等待进度")
             self.progress_bar.setValue(0)
+            self.minus_button.setEnabled(False)
+            self.plus_button.setEnabled(False)
+            self.complete_button.setEnabled(False)
         else:
-            role = {"survivor": "逃生者", "killer": "杀手", "unknown": "古书"}[task.role]
+            role = {"survivor": "逃生者", "killer": "杀手", "both": "双阵营", "unknown": "古书"}[task.role]
             self.eyebrow.setText(f"DBD · {role}任务")
             self.label.setText(task.title)
             self.description.setText(task.description)
@@ -247,6 +297,10 @@ class TomeOverlay(QWidget):
             else:
                 self.progress.setText("等待进度")
                 self.progress_bar.setValue(0)
+            editable = task.current is not None and task.target is not None
+            self.minus_button.setEnabled(editable and task.current > 0)
+            self.plus_button.setEnabled(editable and task.current < task.target)
+            self.complete_button.setEnabled(editable and not task.completed)
         if not self.placed:
             self.place_default()
         if not self.isVisible() and not self.dismissed:

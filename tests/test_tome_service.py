@@ -138,6 +138,20 @@ class TomeServiceTests(unittest.TestCase):
                     Rect(0, 0, 320, 120), "survivor", require_progress=True
                 )
 
+    def test_overlay_controls_adjust_complete_and_persist_progress(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            store = Path(folder) / "task.json"
+            service = TomeService(lambda: FakeCapture(Image.new("RGB", (1, 1))), lambda: FakeOCR([]), store)
+            service.set_manual_task("工程师协会", 2, 10, "survivor")
+            self.assertEqual(service.adjust_progress(3).current, 5)
+            self.assertEqual(service.adjust_progress(-20).current, 0)
+            completed = service.adjust_progress(complete=True)
+            self.assertEqual((completed.current, completed.target), (10, 10))
+            self.assertTrue(completed.completed)
+            loaded = TomeTaskTracker.load(store).task
+            self.assertEqual(loaded.current, 10)
+            self.assertTrue(loaded.completed)
+
 
 if __name__ == "__main__":
     unittest.main()

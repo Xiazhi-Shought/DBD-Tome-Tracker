@@ -47,7 +47,7 @@ class ProgressStabilizer:
 def overlay_text(task: TomeTask | None) -> str:
     if task is None:
         return "尚未识别古书任务"
-    role = {"survivor": "逃生者", "killer": "杀手", "unknown": "古书"}[task.role]
+    role = {"survivor": "逃生者", "killer": "杀手", "both": "双阵营", "unknown": "古书"}[task.role]
     progress = task.display_progress or (
         f"{task.current} / {task.target}"
         if task.current is not None and task.target is not None

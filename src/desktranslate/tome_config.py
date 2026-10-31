@@ -18,7 +18,7 @@ class TomeConfig:
     def __post_init__(self) -> None:
         from desktranslate.shortcuts import parse_hotkey
         parse_hotkey(self.capture_hotkey)
-        if self.role not in {"survivor", "killer", "unknown"}:
+        if self.role not in {"survivor", "killer", "both", "unknown"}:
             raise ValueError("invalid Tome role")
         if not 30 <= self.overlay_opacity <= 95:
             raise ValueError("overlay opacity must be between 30 and 95")

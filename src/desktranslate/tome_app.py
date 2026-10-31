@@ -76,6 +76,8 @@ class TomeControlWindow:
                 self.results: Queue[tuple[str, object]] = Queue()
                 self.selector = None
                 self.overlay = TomeOverlay()
+                self.overlay.progress_delta_requested.connect(self.adjust_overlay_progress)
+                self.overlay.completion_requested.connect(self.complete_overlay_task)
                 self.overlay.set_acrylic_opacity(self.config.overlay_opacity)
                 self.hotkeys = Hotkeys({"capture_task": self.select_task})
                 QApplication.instance().installNativeEventFilter(self.hotkeys)
@@ -114,8 +116,10 @@ class TomeControlWindow:
                 role_row = QHBoxLayout()
                 role_row.addWidget(QLabel("任务阵营"))
                 self.role = QComboBox()
+                self.role.addItem("自动识别", "unknown")
                 self.role.addItem("逃生者", "survivor")
                 self.role.addItem("杀手", "killer")
+                self.role.addItem("两方皆可", "both")
                 index = self.role.findData(self.config.role)
                 self.role.setCurrentIndex(max(0, index))
                 self.role.currentIndexChanged.connect(self.save_role)
@@ -350,11 +354,28 @@ class TomeControlWindow:
 
             def load_task_into_editor(self, task) -> None:  # type: ignore[no-untyped-def]
                 self.editor_loading = True
+                role_index = self.role.findData(task.role)
+                if role_index >= 0:
+                    self.role.setCurrentIndex(role_index)
                 self.task_title.setText(task.title)
                 self.task_description.setPlainText(task.description)
                 self.task_current.setValue(task.current if task.current is not None else 0)
                 self.task_target.setValue(task.target if task.target is not None else 1)
                 self.editor_loading = False
+
+            def adjust_overlay_progress(self, delta: int) -> None:
+                task = self.service.adjust_progress(delta=delta)
+                if task is not None:
+                    self.load_task_into_editor(task)
+                    self.overlay.display_task(task)
+                    self.status.setText(f"悬浮窗已更新进度：{task.current} / {task.target}")
+
+            def complete_overlay_task(self) -> None:
+                task = self.service.adjust_progress(complete=True)
+                if task is not None:
+                    self.load_task_into_editor(task)
+                    self.overlay.display_task(task)
+                    self.status.setText("任务已标记为完成。")
 
             def save_editor_task(self) -> None:
                 title = self.task_title.text().strip()
@@ -416,7 +437,7 @@ class TomeControlWindow:
 
             def show_about(self) -> None:
                 QMessageBox.about(self, "关于 DBD 古书任务追踪器",
-                    "<h3>DBD 古书任务追踪器</h3><p>版本 1.0.0</p>"
+                    "<h3>DBD 古书任务追踪器</h3><p>版本 1.1.0</p>"
                     "<p>作者：Lohick</p>"
                     "<p>© 2026 Lohick。本项目原创内容及修改部分。</p>"
                     "<p>第三方代码与组件版权归各自权利人所有，详见随附许可证。</p>"
